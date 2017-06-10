@@ -4,6 +4,7 @@ import jieba
 import jieba.analyse as ja
 from scipy.spatial import distance
 
+# split the article into sentences and cut the sentences into words
 def get_words(file_path):
     with open(file_path, 'r') as f:
         text = f.read()
@@ -55,6 +56,7 @@ def BM25(words, vocab, k_1, b):
 
     return ret
 
+# calculate cosine similarity as TextRank's weights
 def get_weight(mat):
 
     w = np.zeros((mat.shape[0], mat.shape[0]))
@@ -70,7 +72,7 @@ def get_weight(mat):
 
     return w, w.sum(axis=0)
 
-
+# use TextRank to calculate the scores of each sentences
 def TextRank(num, w, w_sum, d, min_diff, iteration):
 
     vertex = np.ones(num)
